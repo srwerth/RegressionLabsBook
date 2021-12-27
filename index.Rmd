@@ -1,0 +1,73 @@
+--- 
+title: "Linear Regression in R and Stata"
+author: "Rose Werth"
+date: "Winter 2022"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This website contains lessons and labs to help you code linear regression in
+  either Stata or R.
+link-citations: yes
+---
+
+
+
+# Introduction
+```{r, echo= FALSE, out.width='75%'}
+knitr::include_graphics(rep("images/causationcartoon.png"))
+```
+
+Welcome to your guide to learning linear regression in Stata and R. This website houses all the information you need learn the basics of coding linear regression in Stata and R. It will not contain all the information taught in class, but will allow you to bridge that knowledge into running linear regressions on your own. 
+  
+## Labs 
+  
+This is a 10-week course with 9 labs. Each lab will focus on some topic related to coding linear regression. By the end of the course, you should be able to run a linear regression project from start to finish with reproducible code.  
+<br> 
+Each lab will contain links to download script files (in .do or .r format), overviews of key concepts, and application questions. 
+
+
+### Lab Topics {-} 
+  
+* Lab 1: Data cleaning review & code annotation
+* Lab 2: Running a basic linear regression  
+* Lab 3: Testing the assumptions of linear regression  
+* Lab 4: Transforming variables & displaying results 
+* Lab 5: Exporting tables & reproducible code 
+* Lab 6: Evaluating linearity 
+* Lab 7: Review & requested topics TBD 
+* Lab 8: Robust standard errors & multicolinearity 
+* Lab 9: Comparing models & running a project from start to finish  
+ 
+## Finding Data
+
+
+## Render book
+
+You can render the HTML version of this example book without changing anything:
+
+1. Find the **Build** pane in the RStudio IDE, and
+
+1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
+
+Or build the book from the R console:```{r, eval=FALSE}
+bookdown::render_book()
+```
+
+To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
+
+## Preview book
+
+As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:```{r eval=FALSE}
+bookdown::serve_book()
+```
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

@@ -1,0 +1,35 @@
+h1:lab-1-r Lab 1 (R)
+h2:lab-goals-instructions Lab Goals & Instructions
+h2:lab-files Lab Files
+h2:project Create a Project
+h2:data-cleaning Data Cleaning
+h3:environment Set up the environment
+h3:exploring-your-data Exploring your data
+h4:global Let’s start by taking a global look at your dataset.
+h4:names You can also get a list of all the variable names in your data set
+h4:missing Look at missing observations in your dataset
+h4:descriptive You can also pull up descriptive statistics for your entire data set using the  function.
+h4:frequency You can also produce a frequency table for a specific variable.
+h3:cleaning-variables Cleaning variables
+h4:mutate  to create new variables
+h4:ifelse  to write conditional statements
+h3:vizualizing-variables Vizualizing variables
+h4:continuous-variables Continuous Variables
+h5:hist  Create a histogram in base R
+h5:histgg Histograms in 
+h5:boxplot Box plots with 
+h4:categorical-variables Categorical Variables
+h5:barplot Bar plots with 
+h3:subsetting-and-saving-data Subsetting and saving data
+h4:select  to subset your data to specific variables
+h4:filter  to subset your data to specific observations
+h4:save Saving your subset
+h2:annotate The Importance of Annotation and Clean Code
+h3:how-to-make-notes-in-your-script How to make notes in your script
+h3:tips-for-neat-code Tips for Neat Code
+h4:split-long-functions-and-commands-across-multiple-lines Split long functions and commands across multiple lines
+h4:leave-spaces-around-operators Leave spaces around operators
+h4:create-headers-and-sections-in-your-code Create headers and sections in your code
+h4:create-clear-names-for-your-variables-data-frames-and-objects Create clear names for your variables, data frames, and objects
+h2:activity Activity
+

@@ -1,0 +1,27 @@
+h1:lab-1-r Lab 1 (R)
+h2:lab-goals-instructions Lab Goals & Instructions
+h2:lab-files Lab Files
+h2:project Create a Project
+h2:data-cleaning Data Cleaning
+h3:environment Set up the environment
+h3:exploring-your-data Exploring your data
+h4:global Let’s start by taking a global look at your dataset.
+h4:names You can also get a list of all the variable names in your data set
+h4:missing Look at missing observations in your dataset
+h4:descriptive You can also pull up descriptive statistics for your entire data set using the  function.
+h4:frequency You can also produce a frequency table for a specific variable.
+h3:cleaning-variables Cleaning variables
+h4:mutate  to create new variables
+h4:ifelse  to write conditional statements
+h3:vizualizing-variables Vizualizing variables
+h4:continuous-variables Continuous Variables
+h4:hist  Create a histogram in base R
+h4:histgg Histograms in 
+h4:boxplot Bar plots with 
+h3:subsetting-and-saving-data Subsetting and saving data
+h4:select  to subset your data to specific variables
+h4:filter  to subset your data to specific observations
+h4:save Saving your subset
+h2:the-importance-of-annotation The Importance of Annotation
+h3:how-to-make-notes-in-your-script How to make notes in your script
+

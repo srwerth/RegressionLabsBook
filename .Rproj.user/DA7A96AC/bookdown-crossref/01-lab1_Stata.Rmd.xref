@@ -1,0 +1,34 @@
+h1:lab-1-stata Lab 1 (Stata)
+h2:lab-goals-instructions Lab Goals & Instructions
+h2:lab-files Lab Files
+h2:file Create a File Structure
+h2:data-cleaning Data Cleaning
+h3:cd Set up the environment
+h3:use Load your data
+h3:exploring-your-data Exploring your data
+h4:describe Let’s start by taking a global look at your dataset.
+h4:mdesc Look at missing observations in your dataset
+h4:summarize Descriptive statistics for continous variables using 
+h4:tabulate Frequency tables for categorical variables using 
+h3:recode Cleaning variables
+h4:generate  to create new variables
+h4:recode  to transform the values of a variable
+h4:replace  to transform the values of a variable
+h3:vizualizing-variables Vizualizing variables
+h4:continuous-variables Continuous Variables
+h5:histogram2 Histograms
+h5:boxplot2 Box plots
+h4:categorical-variables Categorical Variables
+h3:subsetting-and-saving-data Subsetting and saving data
+h4:keep Subset your data to specific variables
+h4:dropif Subset your data to specific observations
+h4:saving Saving your subset
+h2:the-importance-of-annotation-and-clean-code The Importance of Annotation and Clean Code
+h3:how-to-make-notes-in-your-script How to make notes in your script
+h3:tips-for-neat-code Tips for Neat Code
+h4:split-long-functions-and-commands-across-multiple-lines Split long functions and commands across multiple lines
+h4:leave-spaces-around-operators Leave spaces around operators
+h4:create-headers-and-sections-in-your-code Create headers and sections in your code
+h4:create-clear-names-for-your-variables Create clear names for your variables
+h2:activity Activity
+
