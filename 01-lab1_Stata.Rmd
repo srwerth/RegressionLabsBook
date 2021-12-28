@@ -195,7 +195,7 @@ tabulate demographicsgender2, missing
 ```
 **Note:** you can also shorten `tabulate` to `tab` and the function will run the same. 
 
-### Cleaning variables {- #recode}
+### Cleaning variables {-}
 In the previous section, we learn the code to check the state of a variable when we first open the dataset. Most of the time, you're likely to find that the variable isn't ideal to work with. It is important to use this commands to make a variable ready for your use.  
   
 Let's take a closer look at the variable for gender again: 

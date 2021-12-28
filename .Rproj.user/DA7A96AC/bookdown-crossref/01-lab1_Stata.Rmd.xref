@@ -10,7 +10,7 @@ h4:describe Let’s start by taking a global look at your dataset.
 h4:mdesc Look at missing observations in your dataset
 h4:summarize Descriptive statistics for continous variables using 
 h4:tabulate Frequency tables for categorical variables using 
-h3:recode Cleaning variables
+h3:cleaning-variables Cleaning variables
 h4:generate  to create new variables
 h4:recode  to transform the values of a variable
 h4:replace  to transform the values of a variable
