@@ -1,13 +1,13 @@
 --- 
-title: "Linear Regression in R and Stata"
+title: "Linear Regression in Stata and R"
 author: "Rose Werth"
 date: "Winter 2022"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
-description: |
+url: https://bookdown.org/sarahwerth2024/RegressionLabsBook/
+cover-image: images/rw.png
+description: 
   This website contains lessons and labs to help you code linear regression in
   either Stata or R.
 link-citations: yes
@@ -16,11 +16,17 @@ link-citations: yes
 
 
 # Introduction
-```{r, echo= FALSE, out.width='75%'}
-knitr::include_graphics(rep("images/causationcartoon.png"))
-```
+
+<center>
+![](images/causationcartoon.png){width=400px}
+<br>
+Source: XKCD
+</center>
 
 Welcome to your guide to learning linear regression in Stata and R. This website houses all the information you need learn the basics of coding linear regression in Stata and R. It will not contain all the information taught in class, but will allow you to bridge that knowledge into running linear regressions on your own. 
+<br> 
+<br> 
+The Stata labs on this website were adapted from materials by Ewurama Okai. 
   
 ## Labs 
   
@@ -30,9 +36,11 @@ Each lab will contain links to download script files (in .do or .r format), over
 
 
 ### Lab Topics {-} 
+
+**Note:** All lab topics are tentative and subject to change. 
   
-* Lab 1: Data cleaning review & code annotation
-* Lab 2: Running a basic linear regression  
+* Lab 1: Data cleaning review & writing clean code
+* Lab 2: Running a basic linear regression 
 * Lab 3: Testing the assumptions of linear regression  
 * Lab 4: Transforming variables & displaying results 
 * Lab 5: Exporting tables & reproducible code 
@@ -42,32 +50,27 @@ Each lab will contain links to download script files (in .do or .r format), over
 * Lab 9: Comparing models & running a project from start to finish  
  
 ## Finding Data
+When selecting data, consider:  
+  
+* The research question you would like to answer
+* The model type you will be applying (linear regression in this class)
+* The unit/level of analysis in the dataset (individual? school? district? state?)
+* The main independent and dependent variables you want to analyze
+* Other relevant variables to include in your model
+<br> 
+<br> 
+
+Some places to find datasets:  
+  
+* [Inter-university Consortium for Political and Social Research](https://www.icpsr.umich.edu/)
+* [National Center for Education Statistics](https://nces.ed.gov/)
+* [UNData](https://data.un.org/)
+* [World Values Survey](http://www.worldvaluessurvey.org/)
+* [General Social Survey](https://gssdataexplorer.norc.org/)
+* [Princeton's Office of Population Research Data Archive](https://opr.princeton.edu/archive/)
+* [Harvard Dataverse](https://dataverse.harvard.edu/)
+* [U.S. Government's Open Data](https://www.data.gov/)
+* [Chicago Open Data](https://data.cityofchicago.org/)
+* [COVID-19 Open Data Repository](https://health.google.com/covid-19/open-data/)
 
 
-## Render book
-
-You can render the HTML version of this example book without changing anything:
-
-1. Find the **Build** pane in the RStudio IDE, and
-
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
-
-Or build the book from the R console:```{r, eval=FALSE}
-bookdown::render_book()
-```
-
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
-
-## Preview book
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:```{r eval=FALSE}
-bookdown::serve_book()
-```
-
-
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```

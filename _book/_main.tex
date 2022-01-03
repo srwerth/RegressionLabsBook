@@ -36,7 +36,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Linear Regression in R and Stata},
+  pdftitle={Linear Regression in Stata and R},
   pdfauthor={Rose Werth},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -129,7 +129,7 @@
 \usepackage[]{natbib}
 \bibliographystyle{plainnat}
 
-\title{Linear Regression in R and Stata}
+\title{Linear Regression in Stata and R}
 \author{Rose Werth}
 \date{Winter 2022}
 
@@ -143,9 +143,11 @@
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
 
-\includegraphics[width=0.75\linewidth]{images/causationcartoon}
+\includegraphics[width=4.16667in,height=\textheight]{images/causationcartoon.png}
+Source: XKCD
 
 Welcome to your guide to learning linear regression in Stata and R. This website houses all the information you need learn the basics of coding linear regression in Stata and R. It will not contain all the information taught in class, but will allow you to bridge that knowledge into running linear regressions on your own.
+The Stata labs on this website were adapted from materials by Ewurama Okai.
 
 \hypertarget{labs}{%
 \section{Labs}\label{labs}}
@@ -157,12 +159,14 @@ Each lab will contain links to download script files (in .do or .r format), over
 \subsection*{Lab Topics}\label{lab-topics}}
 \addcontentsline{toc}{subsection}{Lab Topics}
 
+\textbf{Note:} All lab topics are tentative and subject to change.
+
 \begin{itemize}
 \tightlist
 \item
-  Lab 1: Data cleaning review \& code annotation
+  Lab 1: Data cleaning review \& writing clean code
 \item
-  Lab 2: Running a basic linear regression\\
+  Lab 2: Running a basic linear regression
 \item
   Lab 3: Testing the assumptions of linear regression\\
 \item
@@ -182,27 +186,47 @@ Each lab will contain links to download script files (in .do or .r format), over
 \hypertarget{finding-data}{%
 \section{Finding Data}\label{finding-data}}
 
-\hypertarget{render-book}{%
-\section{Render book}\label{render-book}}
+When selecting data, consider:
 
-You can render the HTML version of this example book without changing anything:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
+\tightlist
 \item
-  Find the \textbf{Build} pane in the RStudio IDE, and
+  The research question you would like to answer
 \item
-  Click on \textbf{Build Book}, then select your output format, or select ``All formats'' if you'd like to use multiple formats from the same book source files.
-\end{enumerate}
+  The model type you will be applying (linear regression in this class)
+\item
+  The unit/level of analysis in the dataset (individual? school? district? state?)
+\item
+  The main independent and dependent variables you want to analyze
+\item
+  Other relevant variables to include in your model
+\end{itemize}
 
-Or build the book from the R console:\texttt{\{r,\ eval=FALSE\}\ bookdown::render\_book()}
+Some places to find datasets:
 
-To render this example to PDF as a \texttt{bookdown::pdf\_book}, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): \url{https://yihui.org/tinytex/}.
-
-\hypertarget{preview-book}{%
-\section{Preview book}\label{preview-book}}
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in ``Preview book'', or from the R console:\texttt{\{r\ eval=FALSE\}\ bookdown::serve\_book()}
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.icpsr.umich.edu/}{Inter-university Consortium for Political and Social Research}
+\item
+  \href{https://nces.ed.gov/}{National Center for Education Statistics}
+\item
+  \href{https://data.un.org/}{UNData}
+\item
+  \href{http://www.worldvaluessurvey.org/}{World Values Survey}
+\item
+  \href{https://gssdataexplorer.norc.org/}{General Social Survey}
+\item
+  \href{https://opr.princeton.edu/archive/}{Princeton's Office of Population Research Data Archive}
+\item
+  \href{https://dataverse.harvard.edu/}{Harvard Dataverse}
+\item
+  \href{https://www.data.gov/}{U.S. Government's Open Data}
+\item
+  \href{https://data.cityofchicago.org/}{Chicago Open Data}
+\item
+  \href{https://health.google.com/covid-19/open-data/}{COVID-19 Open Data Repository}
+\end{itemize}
 
 \hypertarget{lab-1-stata}{%
 \chapter{Lab 1 (Stata)}\label{lab-1-stata}}
@@ -213,7 +237,7 @@ As you work, you may start a local server to live preview this HTML book. This p
 \begin{itemize}
 \tightlist
 \item
-  Review the basics of data cleaning\\
+  Review the basics of data cleaning in Stata\\
 \item
   Learn the importance of annotating code
 \item
@@ -230,9 +254,9 @@ As you work, you may start a local server to live preview this HTML book. This p
 \item
   Create a file structure following \protect\hyperlink{file}{the instructions in 2.3 below}
 \item
-  Work through the .do script, executing each line of code. This page contains the same material, with more explanation about the functions used.
+  Work through the .do script, executing each line of code. This page contains the same material, with more explanation about the commands used.
 \item
-  Read through the Importance of \protect\hyperlink{clean}{Annotation and Clean Code}, and complete the short activity at the bottom of the page. Email the .do script file to me by class on Monday.
+  Read through the \protect\hyperlink{clean}{Importance of Annotation and Clean Code}, and complete the short activity at the bottom of the page. Email the .do script file to me by class on Monday.
 \end{enumerate}
 
 \textbf{Jump Links to Commands in this Lab:}\\
@@ -300,14 +324,14 @@ When you begin labs, you should move all raw data files and script files to the 
 \includegraphics[width=0.36458in,height=\textheight]{images/bulb.png} Data Tip
 
 \begin{quote}
-Why do I need two separate folders for data?\\
+\textbf{Why do I need two separate folders for data?}\\
 You should aways store your original, raw data files in a place where they are in no danger of being saved over, altered, or lost. One great way of protecting your original data files is to create two folders for data: one folder for your raw files and one folder where you can saved cleaned datasets and subsets.
 \end{quote}
 
 \hypertarget{data-cleaning}{%
 \section{Data Cleaning}\label{data-cleaning}}
 
-95 percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you opened Stata and run a few commands before. If you are have not used Stata before, here are some resources to help you get started coding in R.
+Ninety-five percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you opened Stata and run a few commands before. If you are have not used Stata before, here are some resources to help you get started coding in Stata.
 
 \begin{itemize}
 \tightlist
@@ -334,6 +358,8 @@ Before you get to work cleaning your data, you need to let the software know whe
 \end{Highlighting}
 \end{Shaded}
 
+If you are having trouble getting this command to work, make sure there are no spaces in any of the parent folders in your file path.
+
 \textbf{Do File Set-up}\\
 Now that you've set your working directory, you can tell Stata to go grab your data and load it into your working environment.
 There are a couple lines of code you want to put at the beginning of your .do file to keep your code running smoothly.
@@ -347,8 +373,7 @@ There are a couple lines of code you want to put at the beginning of your .do fi
 \item
   \texttt{log\ using\ Lab1.scl,\ replace}: This creates a new log file, which is a file that tracks all the code you run in the session. This is important for reviewing your analysis after the fact. Rename the file whatever you like for each lab.
 \item
-  \texttt{version\ 17}: This command Stata what version of the software you wrote this .do file in, in case you are running
-  it in a different version later. Sometimes commands can change between versions. This prevents any inconsistencies between versions from causing errors.
+  \texttt{version\ 17}: This command tells Stata what version of the software you wrote this .do file in, in case you are running it in a different version later. Sometimes commands can change between versions. This prevents any inconsistencies between versions from causing errors.
 \end{itemize}
 
 \begin{Shaded}
@@ -361,9 +386,10 @@ There are a couple lines of code you want to put at the beginning of your .do fi
 \end{Shaded}
 
 \hypertarget{use}{%
-\subsection{Load your data}\label{use}}
+\subsection*{Load your data}\label{use}}
+\addcontentsline{toc}{subsection}{Load your data}
 
-Now you are ready to load your data. Loading data that is in Stata's data formats is easy. An Stata data file ends in .dta. Note how I get to use a relative path, just telling Stata to look in the \texttt{data\_raw} folder, and then the dataset name.
+Now you are ready to load your data. Loading data that is in Stata's data formats is easy. An Stata data file ends in .dta. Note how I get to use a relative path, just telling Stata to look in the \texttt{data\_raw} folder, and then the dataset name. This is because we set our working directory!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -473,7 +499,7 @@ If you want to look at your data set in a spreadsheet-type format you can look a
 \subsubsection*{Look at missing observations in your dataset}\label{mdesc}}
 \addcontentsline{toc}{subsubsection}{Look at missing observations in your dataset}
 
-To look at missing values for each variable in your data set we need to download a new function into Stata. The \texttt{mdesc} function makes looking at missing values easy. To install a Stata program you can run \texttt{search\ mdesc} in the command line and click the link in the program information to install the program ()
+To look at missing values for each variable in your data set we need to download a new function into Stata. The \texttt{mdesc} function makes looking at missing values easy. To install a Stata program you can run \texttt{search\ mdesc} in the command line and click the link in the program information to install the program.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -549,7 +575,7 @@ You can generate simple descriptive statistics (mean, standard deviation, range,
 demographi~e |      2,614    53.34124    25.33332        -42         98
 \end{verbatim}
 
-If you add \texttt{,\ detail} to the command youcan see additional descriptive statistics,
+If you add \texttt{,\ detail} to the command you can see additional descriptive statistics,
 including skew, variance and quartiles.
 
 \begin{Shaded}
@@ -643,7 +669,7 @@ married couple |          3        0.11       98.70
 \subsection*{Cleaning variables}\label{cleaning-variables}}
 \addcontentsline{toc}{subsection}{Cleaning variables}
 
-In the previous section, we learn the code to check the state of a variable when we first open the dataset. Most of the time, you're likely to find that the variable isn't ideal to work with. It is important to use this commands to make a variable ready for your use.
+In the previous section, we learn the code to check the state of a variable when we first open the dataset. Most of the time, you're likely to find that the variable isn't ideal to work with. It is important to learn these commands to make a variable ready for your use.
 
 Let's take a closer look at the variable for gender again:
 
@@ -683,7 +709,7 @@ Let's create a new variable with a better name and recode it how you'd like it.
 \subsubsection*{\texorpdfstring{\texttt{generate} to create new variables}{generate to create new variables}}\label{generate}}
 \addcontentsline{toc}{subsubsection}{\texttt{generate} to create new variables}
 
-If you want to label the 3 married couples as 0, aka not female, take the following steps. First let's generate a new variable \texttt{female} with the same values as \texttt{demographicsgender2}. We'll also go ahead and label that variable ``Female''.
+If you want to label the 3 married couples as 0, aka not female, take the following steps. First let's generate a new variable \texttt{female} with the same values as \texttt{demographicsgender2}. We'll also go ahead and label that variable ``Female''. Note that I've shortened \texttt{generate} to \texttt{gen} and it works the same.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -692,7 +718,7 @@ If you want to label the 3 married couples as 0, aka not female, take the follow
 \end{Highlighting}
 \end{Shaded}
 
-The command is \texttt{label\ variable}, the variable you are labeling is \texttt{female}, and the label is ``Female''.
+To breakdown the line of code to label: the command is \texttt{label\ variable}, the variable you are labeling is \texttt{female}, and the label is ``Female (recoded)''.
 
 \hypertarget{recode}{%
 \subsubsection*{\texorpdfstring{\texttt{recode} to transform the values of a variable}{recode to transform the values of a variable}}\label{recode}}
@@ -793,7 +819,7 @@ Because you set all the values to missing and do not recode the 3 values to anyt
      Total |       249      2,328          3         34 |     2,614 
 \end{verbatim}
 
-\textbf{Note}: In Stata when you are creating something new, as with the generate, you use a single equals sign. Your new variable \texttt{female} \emph{should equal} what follows. When you're writing a test statement referring to something that already exists, you use double equals sign (\texttt{==}), as we do in the second part of the replace command. .
+\textbf{Note}: In Stata when you are creating something new, as with the generate command, you use a single equals sign. Your new variable \texttt{female} \emph{should equal} what follows. When you're writing a test statement referring to something that already exists, you use double equals sign (\texttt{==}), as we do in the second part of the replace command. .
 
 Now let's try another example, looking at the variable for age:
 
@@ -887,7 +913,7 @@ demographic |
       Total |      2,614      100.00
 \end{verbatim}
 
-The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset. Let's recode those variables to missing (.) for now. First we generate a new variable named something simpler and easier to type and label it.
+The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset. Let's recode those variables to missing \texttt{(.)} for now. First we generate a new variable named something simpler and easier to type and label it.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -948,7 +974,7 @@ If you have a sharp eye, you'll notice that we created a new variable rather tha
 \subsubsection*{Continuous Variables}\label{continuous-variables}}
 \addcontentsline{toc}{subsubsection}{Continuous Variables}
 
-While frequency tables and descriptive statistics are helpful, visualizing continuous variables or discrete variables with a wide range of values can be helpful to get a look at the shape of our data. Histograms or box plots the go to.
+While frequency tables and descriptive statistics are helpful, visualizing variables can be helpful to get a look at the shape of our data. For continuous variables or discrete variables with a wide range of values histograms or box plots the go to.
 
 \hypertarget{histogram2}{%
 \paragraph*{Histograms}\label{histogram2}}
@@ -1000,8 +1026,13 @@ Let's try making a boxplot of age by gender.
 \subsubsection*{Categorical Variables}\label{categorical-variables}}
 \addcontentsline{toc}{subsubsection}{Categorical Variables}
 
-Again frequency tables are great, but sometimes a visualization of a categorical data can better communicate patterns.
-\#\#\#\# Bar plots \{- \#barplot2\}
+Again frequency tables are great, but sometimes a visualization of a categorical data can better communicate patterns. You can get creative, but the easiest option is a simple bar plot.
+
+\hypertarget{barplot2}{%
+\subsubsection*{Bar plots}\label{barplot2}}
+\addcontentsline{toc}{subsubsection}{Bar plots}
+
+For the bar plot command, put the variable you want to display in the parentheses in the \texttt{over()} piece of the command. It splits the count over the categories of the variable you specify.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1015,7 +1046,7 @@ Again frequency tables are great, but sometimes a visualization of a categorical
 \subsection*{Subsetting and saving data}\label{subsetting-and-saving-data}}
 \addcontentsline{toc}{subsection}{Subsetting and saving data}
 
-Sometimes you'll be working with a huge dataset, and it is easier and cleaner save portion of observations and/or variables in a new dataset. This is called a sub-sample.
+Sometimes you'll be working with a huge dataset, and it is easier and cleaner to save a portion of observations and/or variables in a new dataset. This is called a subset.
 
 \hypertarget{keep}{%
 \subsubsection*{Subset your data to specific variables}\label{keep}}
@@ -1079,7 +1110,7 @@ But what if you wanted to subset the data to only billionaires 30 or older? For 
 \subsubsection*{Saving your subset}\label{saving}}
 \addcontentsline{toc}{subsubsection}{Saving your subset}
 
-Now that you have your subset, you'll want to save it. Saving in Stata's data, format is simple. You add the \texttt{,\ replace} for when you are rurunning this .do file. If there is already a dataset named \texttt{mysubset.dta}, then stata will save over it with your new changes. \textbf{Take care} with saving over datasets. The action cannot be undone.
+Now that you have your subset, you'll want to save it. Saving in Stata's data format is simple. You add the \texttt{,\ replace} for when you are rurunning this .do file. If there is already a dataset named \texttt{mysubset.dta}, then Stata will save over it with your new changes. \textbf{Take care} with saving over datasets. The action cannot be undone.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1097,8 +1128,8 @@ There are extra steps to save it other formats. .CSV files, are one of the most 
 
 \textbf{Remember}, every time you run these command it writes over your previous save. So be careful about version control and \textbf{ALWAYS} maintain the raw data file in a separate location.
 
-\hypertarget{the-importance-of-annotation-and-clean-code}{%
-\section{The Importance of Annotation and Clean Code}\label{the-importance-of-annotation-and-clean-code}}
+\hypertarget{clean}{%
+\section{The Importance of Annotation and Clean Code}\label{clean}}
 
 A do file (aka a script) is not just a functional document where you conduct your analysis. It is also an important record of your analysis. When you read back through your do files you should be able to understand what each step of code is doing and why. Well-written code scripts:
 
@@ -1150,7 +1181,7 @@ Notes are a huge part of making your code readable to yourself and others. Howev
 \subsubsection*{Split long functions and commands across multiple lines}\label{split-long-functions-and-commands-across-multiple-lines}}
 \addcontentsline{toc}{subsubsection}{Split long functions and commands across multiple lines}
 
-Nothing, I repeat, nothing makes code harder to read than shoving it all into one long line. It can be a little tricky to split some commands across multiple lines in Stata, but it is possible and makes your code much cleaner. You can do so by adding a triple forward slash to the end of a line (\texttt{///}). This tells stata that the command continues on the next line. You can use this over as many lines as you want.
+Nothing, I repeat, nothing makes code harder to read than shoving it all into one long line. It can be a little tricky to split some commands across multiple lines in Stata, but it is possible and makes your code much cleaner. You can do so by adding a triple forward slash to the end of a line (\texttt{///}). This tells Stata that the command continues on the next line. You can use this over as many lines as you want.
 
 Take this example. Say we wanted to keep many variables in our subset.
 
@@ -1267,7 +1298,7 @@ This should be your template for writing clean scripts for the rest of the quart
 \item
   Work through the R script, executing each line of code. This page contains the same material, with more explanation about the functions used.
 \item
-  Read through the Importance of \protect\hyperlink{annotate}{Annotation and Clean Code}, and complete the short activity at the bottom of the page. Email the .R script file to me by class on Monday.
+  Read through the \protect\hyperlink{annotate}{Importance of Annotation and Clean Code}, and complete the short activity at the bottom of the page. Email the .R script file to me by class on Monday.
 \end{enumerate}
 
 \textbf{Jump Links to Functions in this Lab:}\\
@@ -1352,14 +1383,14 @@ For more information on best data management practices, and to see the source of
 \includegraphics[width=0.36458in,height=\textheight]{images/bulb.png} Data Tip
 
 \begin{quote}
-Why do I need two separate folders for data?\\
+\textbf{Why do I need two separate folders for data?}\\
 You should aways store your original, raw data files in a place where they are in no danger of being saved over, altered, or lost. One great way of protecting your original data files is to create two folders for data: one folder for your raw files and one folder where you can saved cleaned datasets and subsets.
 \end{quote}
 
 \hypertarget{data-cleaning-1}{%
 \section{Data Cleaning}\label{data-cleaning-1}}
 
-95 percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you have R downloaded and are familiar with the basics of the language. If you are not, here are some resources to help you get started coding in R.
+Ninety-five percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you have R downloaded and are familiar with the basics of the language. If you are not, here are some resources to help you get started coding in R.
 
 \begin{itemize}
 \tightlist
@@ -1402,16 +1433,6 @@ When you are cleaning datasets these are the basic packages that are useful. Mak
 \FunctionTok{library}\NormalTok{(pillar)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-Attaching package: 'kableExtra'
-\end{verbatim}
-
-\begin{verbatim}
-The following object is masked from 'package:dplyr':
-
-    group_rows
-\end{verbatim}
 
 Note: if you do not have one of these packages installed, you will need to first install it using the command: \texttt{install.packages("skimr")}
 
@@ -1466,7 +1487,8 @@ Remember if this script or any other uses a function that you are not familiar w
 
 There are countless ways to do this, but I am providing you with two helpful functions from two different packages.
 
-Option 1 from the \texttt{skimr} library:
+Option 1 from the \texttt{skimr} library:\\
+Note: The formatting of this web page is cutting off some columns in the table. I'm working on a fix but take a look at the results when you run it in your R script.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1536,7 +1558,9 @@ The \texttt{glimpse} function is not as compact as skim, but it also includes th
 [19] "demographicsgender2"   "companysector2"        "companyrelationship2" 
 \end{verbatim}
 
-View the first 10 rows of your data set. (\#head)
+\hypertarget{head}{%
+\subsubsection*{View the first 10 rows of your data set.}\label{head}}
+\addcontentsline{toc}{subsubsection}{View the first 10 rows of your data set.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1579,6 +1603,8 @@ View the first 10 observations of a specific variable
 \hypertarget{missing}{%
 \subsubsection*{Look at missing observations in your dataset}\label{missing}}
 \addcontentsline{toc}{subsubsection}{Look at missing observations in your dataset}
+
+To apply this to your data set, just change \texttt{mydata} to the name of whatever dataset you are using. Everything else can stay the same.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1835,7 +1861,7 @@ For this recoding we used two new functions.
 \subsubsection*{\texorpdfstring{\texttt{ifelse()} to write conditional statements}{ifelse() to write conditional statements}}\label{ifelse}}
 \addcontentsline{toc}{subsubsection}{\texttt{ifelse()} to write conditional statements}
 
-\texttt{ifelse()} is an incredibly helpful function to recode another variable. The function requires you to specify some type of condition. In this case you're saying make this change \emph{if} \texttt{demographicsgender2} is equal to 1. If it is equal to one, you tell R what you want to do after the comma-- set the value of your new variable equal to one. After the next comma, you tell R \emph{if else} (meaning if \texttt{demographicsgender2} is any other value) set the value of our new variable equal to 1.
+\texttt{ifelse()} is an incredibly helpful function to recode one variable based on its existing values or the values of another variable. The function requires you to specify some type of condition. In this case you're saying make this change \emph{if} \texttt{demographicsgender2} is equal to 1. If it is equal to one, you tell R what you want to do after the comma-- set the value of your new variable equal to one. After the next comma, you tell R \emph{if else} (meaning if \texttt{demographicsgender2} is any other value) set the value of our new variable equal to 1.
 
 \texttt{ifelse(test\ statement,\ value\ if\ test\ is\ true,\ value\ if\ test\ is\ false)}
 
@@ -1895,13 +1921,13 @@ Now let's try another example, looking at the variable for age:
 # ... with 66 more rows
 \end{verbatim}
 
-The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset.Let's recode those variables to missing (NA) for now. Again, you'll use \texttt{mutate()} and \texttt{ifelse()}, and you will name the variable something easier to work with.
+The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset. Let's recode those variables to missing (NA) for now. Again, you'll use \texttt{mutate()} and \texttt{ifelse()}, and you will name the variable something easier to work with. Here if the test statement is false (aka if \texttt{demographicsage} is greater than 0) the value should just transfer over from \texttt{demographicsage}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Recode the variable}
 \NormalTok{mydata }\OtherTok{\textless{}{-}}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{age =} \FunctionTok{ifelse}\NormalTok{(demographicsage }\SpecialCharTok{\textless{}=} \DecValTok{0}\NormalTok{, }\ConstantTok{NA}\NormalTok{, demographicsage))}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{age =} \FunctionTok{ifelse}\NormalTok{(demographicsage }\SpecialCharTok{\textless{}=} \DecValTok{0}\NormalTok{, }\ConstantTok{NA}\NormalTok{, demographicsage)) }
 
 \CommentTok{\# Check the new variable}
 \NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%}
@@ -1943,13 +1969,13 @@ If you have a sharp eye, you'll notice that we created a new variable rather tha
 \subsubsection*{Continuous Variables}\label{continuous-variables-1}}
 \addcontentsline{toc}{subsubsection}{Continuous Variables}
 
-While frequency tables and descriptive statistics are helpful, visualizing continuous variables or discrete variables with a wide range of values can be helpful to get a look at the shape of our data. Histograms or box plots the go to.
+While frequency tables and descriptive statistics are helpful, visualizing variables can be helpful to get a look at the shape of our data. For continuous variables or discrete variables with a wide range of values histograms or box plots the go to.
 
 There are two main ways to create graphs in R, base R plots and \texttt{ggplot2}. \texttt{ggplot2} has far more flexibility, so we will focus on that package primarily. However, when you are moving fast it can sometimes be helpful to throw up a quick histogram in base R.
 
 \hypertarget{hist}{%
-\paragraph*{\texorpdfstring{\texttt{hist()} Create a histogram in base R}{hist() Create a histogram in base R}}\label{hist}}
-\addcontentsline{toc}{paragraph}{\texttt{hist()} Create a histogram in base R}
+\paragraph*{\texorpdfstring{\texttt{hist()} to create a histogram in base R}{hist() to create a histogram in base R}}\label{hist}}
+\addcontentsline{toc}{paragraph}{\texttt{hist()} to create a histogram in base R}
 
 The code for creating a histogram using base R is simple, but you don't have as much flexibility to change aspects of the plot if you want to use it in presentations or papers.
 
@@ -1959,7 +1985,7 @@ The code for creating a histogram using base R is simple, but you don't have as 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 If you want to change the number of bins (i.e.~bars), you add a breaks argument to the function.
 
@@ -1969,7 +1995,7 @@ If you want to change the number of bins (i.e.~bars), you add a breaks argument 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 \hypertarget{histgg}{%
 \paragraph*{\texorpdfstring{Histograms in \texttt{ggplot2}}{Histograms in ggplot2}}\label{histgg}}
@@ -1982,11 +2008,11 @@ As I've mentioned, \texttt{ggplot2} has a massive amount of flexibility and a un
 \CommentTok{\# Creatign the plot}
 \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mydata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age)) }\SpecialCharTok{+} \CommentTok{\#specifying dataset and your variable}
   \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\#changing the outline of the bars to white}
-  \FunctionTok{theme\_minimal}\NormalTok{() }\CommentTok{\# applying a built{-}in theme to the graph}
+  \FunctionTok{theme\_classic}\NormalTok{() }\CommentTok{\# applying a built{-}in theme to the graph}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-36-1.pdf}
 
 Let's try changing the number of bins.
 
@@ -1994,11 +2020,11 @@ Let's try changing the number of bins.
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mydata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age)) }\SpecialCharTok{+}
   \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{bins =} \DecValTok{10}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{()}
+  \FunctionTok{theme\_classic}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-37-1.pdf}
 
 \hypertarget{boxplot}{%
 \paragraph*{\texorpdfstring{Box plots with \texttt{ggplot()}}{Box plots with ggplot()}}\label{boxplot}}
@@ -2014,7 +2040,7 @@ Let's try making a boxplot of age.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-38-1.pdf}
 
 Let's try making a boxplot of age by gender.
 
@@ -2027,7 +2053,7 @@ Let's try making a boxplot of age by gender.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 \hypertarget{categorical-variables-1}{%
 \subsubsection{Categorical Variables}\label{categorical-variables-1}}
@@ -2044,11 +2070,11 @@ Let's try making a bar plot of gender. Note I have to turn \texttt{female} into 
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ mydata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{as.factor}\NormalTok{(female))) }\SpecialCharTok{+} 
   \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+} 
-  \FunctionTok{theme\_classic}\NormalTok{()}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 If I want to remove the NA column, I can also filter the data within the \texttt{ggplot} function. I'm also going to clean up the axis labels, add a title, and change the width of the bars.
 
@@ -2061,11 +2087,11 @@ If I want to remove the NA column, I can also filter the data within the \texttt
     \AttributeTok{y =} \StringTok{"Count"}\NormalTok{, }
     \AttributeTok{title =} \StringTok{"Bar plot of gender"}
 \NormalTok{  ) }\SpecialCharTok{+} 
-  \FunctionTok{theme\_classic}\NormalTok{()}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{_main_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 Another advantage of ggplot is that the code to save is much easier than base R plots. This code will save the last ggplot that you created. I encourage you to look up other examples of \texttt{ggsave} to learn different ways you can save plots as objects, specify height and width, and more.
 
@@ -2079,7 +2105,7 @@ Another advantage of ggplot is that the code to save is much easier than base R 
 \subsection*{Subsetting and saving data}\label{subsetting-and-saving-data-1}}
 \addcontentsline{toc}{subsection}{Subsetting and saving data}
 
-Sometimes you'll be working with a huge dataset, and it is easier and cleaner save portion of observations and/or variables in a new dataset. This is called a sub-sample.
+Sometimes you'll be working with a huge dataset, and it is easier and cleaner save a portion of observations and/or variables in a new dataset. This is called a subset.
 
 \hypertarget{select}{%
 \subsubsection*{\texorpdfstring{\texttt{select()} to subset your data to specific variables}{select() to subset your data to specific variables}}\label{select}}
@@ -2092,12 +2118,16 @@ Let's say you only want to keep the following three variables: year and the two 
 \NormalTok{mysubset }\OtherTok{\textless{}{-}}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# note I\textquotesingle{}m saving this as a new dataframe with a new name}
   \FunctionTok{select}\NormalTok{(year, age, female)}
 
-\FunctionTok{skim\_without\_charts}\NormalTok{(mysubset) }\CommentTok{\# you should always check your data when you make a major change like adding or removing variables.}
+\FunctionTok{glimpse}\NormalTok{(mysubset) }\CommentTok{\# you should always check your data when you make a major change like adding or removing variables.}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Error in kable_latex(x = structure(c("Name", "Number of rows", "Number of columns", : unused argument (table.attr = "style='width: auto;'\n        class='table table-condensed'")
+Rows: 2,614
+Columns: 3
+$ year   <dbl> 1996, 2001, 2014, 1996, 2001, 2014, 1996, 2001, 2014, 1996, 200~
+$ age    <dbl> 40, 45, 58, 65, 70, 74, NA, 48, 77, 68, 56, 83, 71, NA, 69, NA,~
+$ female <dbl> 0, 0, 0, 0, 0, 0, NA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,~
 \end{verbatim}
 
 \hypertarget{filter}{%
@@ -2270,7 +2300,7 @@ put a space after any comma or logical operator. Take the line of code below:
 \end{Highlighting}
 \end{Shaded}
 
-It works, but it's cluttered and makes it difficult to read. Take a look at this
+It works, but it's cluttered and that makes it difficult to read. Take a look at this
 line in a cleaner format:
 
 \begin{Shaded}
@@ -2287,7 +2317,7 @@ Notice how I've added a space on both sides of the \texttt{=}, the \texttt{/}, a
 
 You wouldn't write a paper without any titles or sections, so don't write your code without titles or sections! Take a look back at the R script for this lab. Notice how I put a section header for setting up your environment, exploring your data, cleaning your data, and so on. Hopefully this made it easier for you to work through the script.
 
-You can create headers with comments, but you can also use a shortcut built into R. If you go to \textbf{Code -\textgreater{} Insert Section} or \texttt{Ctrl+Shift+R} (\texttt{Cmd+Shift+R} on the Mac). This will insert a header and create a code section. Any comment line which includes at least four trailing dashes (-), equal signs (=), or pound signs (\#) automatically creates a code section.
+You can create headers with comments, but you can also use a shortcut built into R. If you go to \textbf{Code -\textgreater{} Insert Section} or \texttt{Ctrl+Shift+R} (\texttt{Cmd+Shift+R} on the Mac) this will insert a header and create a code section. Any comment line which includes at least four trailing dashes (-), equal signs (=), or pound signs (\#) automatically creates a code section.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2307,9 +2337,15 @@ You can collapse and expand code sections or use a drop down menu to jump to a c
 \subsubsection*{Create clear names for your variables, data frames, and objects}\label{create-clear-names-for-your-variables-data-frames-and-objects}}
 \addcontentsline{toc}{subsubsection}{Create clear names for your variables, data frames, and objects}
 
-Everyone has their own preferred naming system for variables, data frames, and other R objects. The golden rule for naming is consistency. For example, if I recode variables I will often add \texttt{\_rc} to the end for recode (e.g., \texttt{age} and \texttt{age\_rc}). Other tips:\\
-* Make your names explicit, but brief (e.g., \texttt{table\_1}, \texttt{table\_2})
-* Don't include spaces in your file names, it makes file paths difficult
+Everyone has their own preferred naming system for variables, data frames, and other R objects. The golden rule for naming is consistency. For example, if I recode variables I will often add \texttt{\_rc} to the end for recode (e.g., \texttt{age} and \texttt{age\_rc}). Other tips:
+
+\begin{itemize}
+\tightlist
+\item
+  Make your names explicit, but brief (e.g., \texttt{table\_1}, \texttt{table\_2})
+\item
+  Don't include spaces in your file names, it makes file paths difficult
+\end{itemize}
 
 \hypertarget{activity-1}{%
 \section{Activity}\label{activity-1}}

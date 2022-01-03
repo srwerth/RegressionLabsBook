@@ -7,6 +7,7 @@ h3:environment Set up the environment
 h3:exploring-your-data Exploring your data
 h4:global Let’s start by taking a global look at your dataset.
 h4:names You can also get a list of all the variable names in your data set
+h4:head View the first 10 rows of your data set.
 h4:missing Look at missing observations in your dataset
 h4:descriptive You can also pull up descriptive statistics for your entire data set using the  function.
 h4:frequency You can also produce a frequency table for a specific variable.
@@ -15,7 +16,7 @@ h4:mutate  to create new variables
 h4:ifelse  to write conditional statements
 h3:vizualizing-variables Vizualizing variables
 h4:continuous-variables Continuous Variables
-h5:hist  Create a histogram in base R
+h5:hist  to create a histogram in base R
 h5:histgg Histograms in 
 h5:boxplot Box plots with 
 h4:categorical-variables Categorical Variables

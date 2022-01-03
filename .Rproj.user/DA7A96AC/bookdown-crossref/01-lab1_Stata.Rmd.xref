@@ -19,11 +19,12 @@ h4:continuous-variables Continuous Variables
 h5:histogram2 Histograms
 h5:boxplot2 Box plots
 h4:categorical-variables Categorical Variables
+h4:barplot2 Bar plots
 h3:subsetting-and-saving-data Subsetting and saving data
 h4:keep Subset your data to specific variables
 h4:dropif Subset your data to specific observations
 h4:saving Saving your subset
-h2:the-importance-of-annotation-and-clean-code The Importance of Annotation and Clean Code
+h2:clean The Importance of Annotation and Clean Code
 h3:how-to-make-notes-in-your-script How to make notes in your script
 h3:tips-for-neat-code Tips for Neat Code
 h4:split-long-functions-and-commands-across-multiple-lines Split long functions and commands across multiple lines

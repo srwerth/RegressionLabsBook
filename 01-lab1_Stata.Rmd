@@ -9,7 +9,7 @@ knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 
 ## Lab Goals & Instructions
   
-* Review the basics of data cleaning  
+* Review the basics of data cleaning in Stata  
 * Learn the importance of annotating code
 * Start develop your own coding style 
   
@@ -17,8 +17,8 @@ knitr::opts_chunk$set(engine.path = list(stata = stataexe))
   
 1. Download the data file (`SOC401_W21_Billionaires.dta`) and .do script (`401-1-Lab1.do`) from the links below. 
 2. Create a file structure following [the instructions in 2.3 below](#file)
-2. Work through the .do script, executing each line of code. This page contains the same material, with more explanation about the functions used. 
-3. Read through the Importance of [Annotation and Clean Code](#clean), and complete the short activity at the bottom of the page. Email the .do script file to me by class on Monday.   
+2. Work through the .do script, executing each line of code. This page contains the same material, with more explanation about the commands used. 
+3. Read through the [Importance of Annotation and Clean Code](#clean), and complete the short activity at the bottom of the page. Email the .do script file to me by class on Monday.   
   
 **Jump Links to Commands in this Lab:**  
 [cd (set working directory)](#cd)  
@@ -75,12 +75,12 @@ When you begin labs, you should move all raw data files and script files to the 
 
 ![](images/bulb.png){width=35px} <font size="5"> Data Tip</font>  
 
-> Why do I need two separate folders for data?  
+> **Why do I need two separate folders for data?**  
 You should aways store your original, raw data files in a place where they are in no danger of being saved over, altered, or lost. One great way of protecting your original data files is to create two folders for data: one folder for your raw files and one folder where you can saved cleaned datasets and subsets. 
 
 ## Data Cleaning 
 
-95 percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you opened Stata and run a few commands before. If you are have not used Stata before, here are some resources to help you get started coding in R.  
+Ninety-five percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you opened Stata and run a few commands before. If you are have not used Stata before, here are some resources to help you get started coding in Stata.  
   
 * [Stata Tutorial from Princeton](https://www.princeton.edu/~otorres/StataTutorial.pdf): A great overview of Stata basics  
 * [Stata Tutorial from University of South Australia](https://lo.unisa.edu.au/mod/book/view.php?id=641259)
@@ -91,21 +91,25 @@ Northwestern's Research Computing Services [offers great trainings in a variety 
 ### Set up the environment {- #cd}
 
 **Working Directory**  
-Before you get to work cleaning your data, you need to let the software know where to grab and save your files. This saves you from having to type in a long file path anytime you want to do something. You must begin any Stata .do file by setting your working directory. Your working directory is the folder on your computer where you want to store all your data and script files. Below you will see the path to my working directory. You should replace the filepath with the one you want to use. 
+Before you get to work cleaning your data, you need to let the software know where to grab and save your files. This saves you from having to type in a long file path anytime you want to do something. You must begin any Stata .do file by setting your working directory. Your working directory is the folder on your computer where you want to store all your data and script files. Below you will see the path to my working directory. You should replace the filepath with the one you want to use.  
+
 ```{stata working-directory, results=FALSE, collectcode=TRUE}
 cd "/Users/srwerth/Documents/Work_Research/Regression_Labs"
 ```
-  
+If you are having trouble getting this command to work, make sure there are no spaces in any of the parent folders in your file path.
+<br>
+<br>
+
 **Do File Set-up**  
 Now that you've set your working directory, you can tell Stata to go grab your data and load it into your working environment. 
+<br> 
 <br>
 There are a couple lines of code you want to put at the beginning of your .do file to keep your code running smoothly.  
   
 * `clear all`: Clears the stata environment before you run your code. 
 * `capture log close`: If there's a previous log set up, this code closes it. 
 * `log using Lab1.scl, replace`: This creates a new log file, which is a file that tracks all the code you run in the session. This is important for reviewing your analysis after the fact. Rename the file whatever you like for each lab. 
-* `version 17`: This command Stata what version of the software you wrote this .do file in, in case you are running
-it in a different version later. Sometimes commands can change between versions. This prevents any inconsistencies between versions from causing errors.
+* `version 17`: This command tells Stata what version of the software you wrote this .do file in, in case you are running it in a different version later. Sometimes commands can change between versions. This prevents any inconsistencies between versions from causing errors.
 ```{stata environment, eval=FALSE}
 clear all 
 capture log close
@@ -114,8 +118,8 @@ version 17
 ```
 
 
-### Load your data {#use} 
-Now you are ready to load your data. Loading data that is in Stata's data formats is easy. An Stata data file ends in .dta. Note how I get to use a relative path, just telling Stata to look in the `data_raw` folder, and then the dataset name. 
+### Load your data {- #use} 
+Now you are ready to load your data. Loading data that is in Stata's data formats is easy. An Stata data file ends in .dta. Note how I get to use a relative path, just telling Stata to look in the `data_raw` folder, and then the dataset name. This is because we set our working directory! 
 ```{stata data-load, results=FALSE, collectcode=TRUE}
 use "data_raw/SOC401_W21_Billionaires.dta"
 ```
@@ -152,7 +156,7 @@ If you want to look at your data set in a spreadsheet-type format you can look a
 
 
 #### Look at missing observations in your dataset {- #mdesc}
-To look at missing values for each variable in your data set we need to download a new function into Stata. The `mdesc` function makes looking at missing values easy. To install a Stata program you can run `search mdesc` in the command line and click the link in the program information to install the program ()
+To look at missing values for each variable in your data set we need to download a new function into Stata. The `mdesc` function makes looking at missing values easy. To install a Stata program you can run `search mdesc` in the command line and click the link in the program information to install the program. 
 ```{stata install, results=FALSE, collectcode=TRUE}
 ssc install mdesc
 ```
@@ -174,7 +178,7 @@ You can generate simple descriptive statistics (mean, standard deviation, range,
 summarize demographicsage
 ```
 
-If you add `, detail` to the command youcan see additional descriptive statistics, 
+If you add `, detail` to the command you can see additional descriptive statistics, 
 	including skew, variance and quartiles.
 ```{stata summarize2}
 summarize demographicsage, detail
@@ -196,7 +200,7 @@ tabulate demographicsgender2, missing
 **Note:** you can also shorten `tabulate` to `tab` and the function will run the same. 
 
 ### Cleaning variables {-}
-In the previous section, we learn the code to check the state of a variable when we first open the dataset. Most of the time, you're likely to find that the variable isn't ideal to work with. It is important to use this commands to make a variable ready for your use.  
+In the previous section, we learn the code to check the state of a variable when we first open the dataset. Most of the time, you're likely to find that the variable isn't ideal to work with. It is important to learn these commands to make a variable ready for your use.  
   
 Let's take a closer look at the variable for gender again: 
 ```{stata look}
@@ -212,13 +216,13 @@ c) We have three married couples in our data set coded as 3
 Let's create a new variable with a better name and recode it how you'd like it. 
 
 #### `generate` to create new variables {- #generate}
-If you want to label the 3 married couples as 0, aka not female, take the following steps. First let's generate a new variable `female` with the same values as `demographicsgender2`. We'll also go ahead and label that variable "Female". 
+If you want to label the 3 married couples as 0, aka not female, take the following steps. First let's generate a new variable `female` with the same values as `demographicsgender2`. We'll also go ahead and label that variable "Female". Note that I've shortened `generate` to `gen` and it works the same. 
 ```{stata gen, collectcode=TRUE, results=FALSE}
 gen female = demographicsgender2
 label variable female "Female (recoded)"
 ```
 
-The command is `label variable`, the variable you are labeling is `female`, and the label is "Female". 
+To breakdown the line of code to label: the command is `label variable`, the variable you are labeling is `female`, and the label is "Female (recoded)". 
 
 #### `recode` to transform the values of a variable {- #recode}
 Now let's take our new variable and recode the values so that 0 means "Not Female" and 1 means "Female". In this example, we're taking all the married couples and labeling them as 0. In this code you are telling Stata to recode the variable `female` so that a 3 becomes a 0, a 2 becomes a 0 and a 1 stays a 1. 
@@ -266,14 +270,14 @@ Because you set all the values to missing and do not recode the 3 values to anyt
 tab female2 demographicsgender2, missing
 ```
 
-**Note**: In Stata when you are creating something new, as with the generate, you use a single equals sign. Your new variable `female` *should equal* what follows. When you're writing a test statement referring to something that already exists, you use double equals sign (`==`), as we do in the second part of the replace command. . 
+**Note**: In Stata when you are creating something new, as with the generate command, you use a single equals sign. Your new variable `female` *should equal* what follows. When you're writing a test statement referring to something that already exists, you use double equals sign (`==`), as we do in the second part of the replace command. . 
 
 Now let's try another example, looking at the variable for age: 
 ```{stata look2}
 tab demographicsage, missing
 ```
 
-The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset. Let's recode those variables to missing (.) for now. First we generate a new variable named something simpler and easier to type and label it. 
+The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset. Let's recode those variables to missing `(.)` for now. First we generate a new variable named something simpler and easier to type and label it. 
 ```{stata gen-age, results=FALSE, collectcode=TRUE}
 generate age = demographicsage
 label variable age "Age (recoded)"
@@ -303,7 +307,7 @@ If you have a sharp eye, you'll notice that we created a new variable rather tha
 ### Vizualizing variables {-}
 
 #### Continuous Variables {-}
-While frequency tables and descriptive statistics are helpful, visualizing continuous variables or discrete variables with a wide range of values can be helpful to get a look at the shape of our data. Histograms or box plots the go to.  
+While frequency tables and descriptive statistics are helpful, visualizing variables can be helpful to get a look at the shape of our data. For continuous variables or discrete variables with a wide range of values histograms or box plots the go to.  
   
   
 ##### Histograms {- #histogram2}
@@ -333,15 +337,17 @@ graph box age, over(female2)
 ![](images/boxover_stata.png)
 
 #### Categorical Variables {-}
-Again frequency tables are great, but sometimes a visualization of a categorical data can better communicate patterns. 
+Again frequency tables are great, but sometimes a visualization of a categorical data can better communicate patterns. You can get creative, but the easiest option is a simple bar plot. 
+
 #### Bar plots {- #barplot2}
+For the bar plot command, put the variable you want to display in the parentheses in the `over()` piece of the command. It splits the count over the categories of the variable you specify. 
 ```{stata bar2, eval=FALSE}
 graph bar, over (female)
 ```
 ![](images/bar_stata.png)
 
 ### Subsetting and saving data {-}
-Sometimes you'll be working with a huge dataset, and it is easier and cleaner save portion of observations and/or variables in a new dataset. This is called a sub-sample.  
+Sometimes you'll be working with a huge dataset, and it is easier and cleaner to save a portion of observations and/or variables in a new dataset. This is called a subset.  
 
 #### Subset your data to specific variables {- #keep}
 Let's say you only want to keep the following three variables: year and the two variables you just created: age and female. For this task, you can use the `keep` command. We'll check it with the `describe` command. 
@@ -365,7 +371,7 @@ summarize age
 ```
 
 #### Saving your subset {- #saving}
-Now that you have your subset, you'll want to save it. Saving in Stata's data, format is simple. You add the `, replace` for when you are rurunning this .do file. If there is already a dataset named `mysubset.dta`, then stata will save over it with your new changes. **Take care** with saving over datasets. The action cannot be undone. 
+Now that you have your subset, you'll want to save it. Saving in Stata's data format is simple. You add the `, replace` for when you are rurunning this .do file. If there is already a dataset named `mysubset.dta`, then Stata will save over it with your new changes. **Take care** with saving over datasets. The action cannot be undone. 
 ```{stata save, eval=FALSE}
 save "data_work/mysubset.dta", replace
 ```
@@ -377,7 +383,7 @@ export delimited using data_work/mysubset.csv, replace
 
 **Remember**, every time you run these command it writes over your previous save. So be careful about version control and **ALWAYS** maintain the raw data file in a separate location.
 
-## The Importance of Annotation and Clean Code 
+## The Importance of Annotation and Clean Code {#clean}
 A do file (aka a script) is not just a functional document where you conduct your analysis. It is also an important record of your analysis. When you read back through your do files you should be able to understand what each step of code is doing and why. Well-written code scripts:  
   
 * Have a header with your name and a title or a short description of what the script contains (e.g., "Cleaning data for regression analysis on billionaires")
@@ -406,7 +412,7 @@ Notes are a huge part of making your code readable to yourself and others. Howev
 * Create clear names for your variables
 
 #### Split long functions and commands across multiple lines {-}
-Nothing, I repeat, nothing makes code harder to read than shoving it all into one long line. It can be a little tricky to split some commands across multiple lines in Stata, but it is possible and makes your code much cleaner. You can do so by adding a triple forward slash to the end of a line (`///`). This tells stata that the command continues on the next line. You can use this over as many lines as you want.  
+Nothing, I repeat, nothing makes code harder to read than shoving it all into one long line. It can be a little tricky to split some commands across multiple lines in Stata, but it is possible and makes your code much cleaner. You can do so by adding a triple forward slash to the end of a line (`///`). This tells Stata that the command continues on the next line. You can use this over as many lines as you want.  
   
 Take this example. Say we wanted to keep many variables in our subset. 
 

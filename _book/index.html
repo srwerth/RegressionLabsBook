@@ -4,25 +4,22 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Linear Regression in R and Stata</title>
-  <meta name="description" content="<p>This website contains lessons and labs to help you code linear regression in
-either Stata or R.</p>" />
+  <title>Linear Regression in Stata and R</title>
+  <meta name="description" content="This website contains lessons and labs to help you code linear regression in either Stata or R." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Linear Regression in R and Stata" />
+  <meta property="og:title" content="Linear Regression in Stata and R" />
   <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="<p>This website contains lessons and labs to help you code linear regression in
-either Stata or R.</p>" />
+  <meta property="og:url" content="https://bookdown.org/sarahwerth2024/RegressionLabsBook/" />
+  <meta property="og:image" content="https://bookdown.org/sarahwerth2024/RegressionLabsBook/images/rw.png" />
+  <meta property="og:description" content="This website contains lessons and labs to help you code linear regression in either Stata or R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Linear Regression in R and Stata" />
+  <meta name="twitter:title" content="Linear Regression in Stata and R" />
   
-  <meta name="twitter:description" content="<p>This website contains lessons and labs to help you code linear regression in
-either Stata or R.</p>" />
-  
+  <meta name="twitter:description" content="This website contains lessons and labs to help you code linear regression in either Stata or R." />
+  <meta name="twitter:image" content="https://bookdown.org/sarahwerth2024/RegressionLabsBook/images/rw.png" />
 
 <meta name="author" content="Rose Werth" />
 
@@ -146,8 +143,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#lab-topics"><i class="fa fa-check"></i>Lab Topics</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#finding-data"><i class="fa fa-check"></i><b>1.2</b> Finding Data</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.3</b> Render book</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.4</b> Preview book</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="lab-1-stata.html"><a href="lab-1-stata.html"><i class="fa fa-check"></i><b>2</b> Lab 1 (Stata)</a>
 <ul>
@@ -157,13 +152,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="lab-1-stata.html"><a href="lab-1-stata.html#data-cleaning"><i class="fa fa-check"></i><b>2.4</b> Data Cleaning</a>
 <ul>
 <li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#cd"><i class="fa fa-check"></i>Set up the environment</a></li>
-<li class="chapter" data-level="2.4.1" data-path="lab-1-stata.html"><a href="lab-1-stata.html#use"><i class="fa fa-check"></i><b>2.4.1</b> Load your data</a></li>
+<li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#use"><i class="fa fa-check"></i>Load your data</a></li>
 <li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#exploring-your-data"><i class="fa fa-check"></i>Exploring your data</a></li>
 <li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#cleaning-variables"><i class="fa fa-check"></i>Cleaning variables</a></li>
 <li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#vizualizing-variables"><i class="fa fa-check"></i>Vizualizing variables</a></li>
 <li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#subsetting-and-saving-data"><i class="fa fa-check"></i>Subsetting and saving data</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="lab-1-stata.html"><a href="lab-1-stata.html#the-importance-of-annotation-and-clean-code"><i class="fa fa-check"></i><b>2.5</b> The Importance of Annotation and Clean Code</a>
+<li class="chapter" data-level="2.5" data-path="lab-1-stata.html"><a href="lab-1-stata.html#clean"><i class="fa fa-check"></i><b>2.5</b> The Importance of Annotation and Clean Code</a>
 <ul>
 <li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#how-to-make-notes-in-your-script"><i class="fa fa-check"></i>How to make notes in your script</a></li>
 <li class="chapter" data-level="" data-path="lab-1-stata.html"><a href="lab-1-stata.html#tips-for-neat-code"><i class="fa fa-check"></i>Tips for Neat Code</a></li>
@@ -202,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Linear Regression in R and Stata</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Linear Regression in Stata and R</a>
           </h1>
         </div>
 
@@ -211,14 +206,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Linear Regression in R and Stata</h1>
+<h1 class="title">Linear Regression in Stata and R</h1>
 <p class="author"><em>Rose Werth</em></p>
 <p class="date"><em>Winter 2022</em></p>
 </div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="images/causationcartoon.png" width="75%" /></p>
-<p>Welcome to your guide to learning linear regression in Stata and R. This website houses all the information you need learn the basics of coding linear regression in Stata and R. It will not contain all the information taught in class, but will allow you to bridge that knowledge into running linear regressions on your own.</p>
+<center>
+<img src="images/causationcartoon.png" width="400" />
+<br>
+Source: XKCD
+</center>
+<p>Welcome to your guide to learning linear regression in Stata and R. This website houses all the information you need learn the basics of coding linear regression in Stata and R. It will not contain all the information taught in class, but will allow you to bridge that knowledge into running linear regressions on your own.
+<br>
+<br>
+The Stata labs on this website were adapted from materials by Ewurama Okai.</p>
 <div id="labs" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Labs</h2>
 <p>This is a 10-week course with 9 labs. Each lab will focus on some topic related to coding linear regression. By the end of the course, you should be able to run a linear regression project from start to finish with reproducible code.<br />
@@ -226,10 +228,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Each lab will contain links to download script files (in .do or .r format), overviews of key concepts, and application questions.</p>
 <div id="lab-topics" class="section level3 unnumbered">
 <h3>Lab Topics</h3>
+<p><strong>Note:</strong> All lab topics are tentative and subject to change.</p>
 <ul>
-<li>Lab 1: Data cleaning review &amp; code annotation</li>
-<li>Lab 2: Running a basic linear regression<br />
-</li>
+<li>Lab 1: Data cleaning review &amp; writing clean code</li>
+<li>Lab 2: Running a basic linear regression</li>
 <li>Lab 3: Testing the assumptions of linear regression<br />
 </li>
 <li>Lab 4: Transforming variables &amp; displaying results</li>
@@ -243,20 +245,29 @@ Each lab will contain links to download script files (in .do or .r format), over
 </div>
 <div id="finding-data" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Finding Data</h2>
-</div>
-<div id="render-book" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Render book</h2>
-<p>You can render the HTML version of this example book without changing anything:</p>
-<ol style="list-style-type: decimal">
-<li><p>Find the <strong>Build</strong> pane in the RStudio IDE, and</p></li>
-<li><p>Click on <strong>Build Book</strong>, then select your output format, or select “All formats” if you’d like to use multiple formats from the same book source files.</p></li>
-</ol>
-<p>Or build the book from the R console:<code>{r, eval=FALSE} bookdown::render_book()</code></p>
-<p>To render this example to PDF as a <code>bookdown::pdf_book</code>, you’ll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.org/tinytex/" class="uri">https://yihui.org/tinytex/</a>.</p>
-</div>
-<div id="preview-book" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Preview book</h2>
-<p>As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in “Preview book,” or from the R console:<code>{r eval=FALSE} bookdown::serve_book()</code></p>
+<p>When selecting data, consider:</p>
+<ul>
+<li>The research question you would like to answer</li>
+<li>The model type you will be applying (linear regression in this class)</li>
+<li>The unit/level of analysis in the dataset (individual? school? district? state?)</li>
+<li>The main independent and dependent variables you want to analyze</li>
+<li>Other relevant variables to include in your model
+<br>
+<br></li>
+</ul>
+<p>Some places to find datasets:</p>
+<ul>
+<li><a href="https://www.icpsr.umich.edu/">Inter-university Consortium for Political and Social Research</a></li>
+<li><a href="https://nces.ed.gov/">National Center for Education Statistics</a></li>
+<li><a href="https://data.un.org/">UNData</a></li>
+<li><a href="http://www.worldvaluessurvey.org/">World Values Survey</a></li>
+<li><a href="https://gssdataexplorer.norc.org/">General Social Survey</a></li>
+<li><a href="https://opr.princeton.edu/archive/">Princeton’s Office of Population Research Data Archive</a></li>
+<li><a href="https://dataverse.harvard.edu/">Harvard Dataverse</a></li>
+<li><a href="https://www.data.gov/">U.S. Government’s Open Data</a></li>
+<li><a href="https://data.cityofchicago.org/">Chicago Open Data</a></li>
+<li><a href="https://health.google.com/covid-19/open-data/">COVID-19 Open Data Repository</a></li>
+</ul>
 
 </div>
 </div>
@@ -314,7 +325,8 @@ gitbook.start({
 "options": null
 },
 "toc": {
-"collapse": "subsection"
+"collapse": "subsection",
+"scroll_highlight": true
 }
 });
 });

@@ -1,4 +1,8 @@
 # Lab 1 (R)
+```{r, echo = FALSE}
+knitr::opts_chunk$set(comment="")
+```
+
 
 ## Lab Goals & Instructions
   
@@ -11,7 +15,7 @@
 1. Download the data file (`SOC401_W21_Billionaires.rda`) and R script (`401-1-Lab1.R`) from the links below. 
 2. Create a project following [the instructions in 3.3 below](#project)
 2. Work through the R script, executing each line of code. This page contains the same material, with more explanation about the functions used. 
-3. Read through the Importance of [Annotation and Clean Code](#annotate), and complete the short activity at the bottom of the page. Email the .R script file to me by class on Monday.   
+3. Read through the [Importance of Annotation and Clean Code](#annotate), and complete the short activity at the bottom of the page. Email the .R script file to me by class on Monday.   
   
 **Jump Links to Functions in this Lab:**  
 [Global view of dataset](#global)  
@@ -41,9 +45,10 @@ xfun::embed_file('scripts/401-1-Lab1.R')
 ```
 
 ## Create a Project {#project}
-In R, it is always best to work within what is called a "Project" when you are coding and analyzing data. Life can get messy and so can data analysis. Creating a project and a file structure is the equivalent of keeping a clean work space. You may not mind a messy desk, but a messy file structure will be a nightmare for your collaborators and increase your risk of making mistakes in your analysis. With quantitative data analysis, file management is crucial. <br> 
-RStudio has created a wonderful project management tool for you. It's an umbrella file that organizes all your scripts, folders, figures, and more. It also sets your working directory for you, which we will [discuss more below](#environment). 
+In R, it is always best to work within what is called a "Project" when you are coding and analyzing data. Life can get messy and so can data analysis. Creating a project and a file structure is the equivalent of keeping a clean work space. You may not mind a messy desk, but a messy file structure will be a nightmare for your collaborators and increase your risk of making mistakes in your analysis. With quantitative data analysis, file management is crucial.
 <br> 
+<br> 
+RStudio has created a wonderful project management tool for you. It's an umbrella file that organizes all your scripts, folders, figures, and more. It also sets your working directory for you, which we will [discuss more below](#environment). 
 <br> 
 
 For your first task, create a project in R for this class. 
@@ -77,12 +82,12 @@ For more information on best data management practices, and to see the source of
 
 ![](images/bulb.png){width=35px} <font size="5"> Data Tip</font>  
 
-> Why do I need two separate folders for data?  
+> **Why do I need two separate folders for data?**  
 You should aways store your original, raw data files in a place where they are in no danger of being saved over, altered, or lost. One great way of protecting your original data files is to create two folders for data: one folder for your raw files and one folder where you can saved cleaned datasets and subsets. 
 
 ## Data Cleaning 
 
-95 percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you have R downloaded and are familiar with the basics of the language. If you are not, here are some resources to help you get started coding in R.  
+Ninety-five percent of the work of quantitative research is getting your data in shape to run your model. This tutorial assumes that you have R downloaded and are familiar with the basics of the language. If you are not, here are some resources to help you get started coding in R.  
   
 * [R for Data Science](https://r4ds.had.co.nz/). A great online book to help you learn R on your own. 
 * [R Programming Tutorials on Youtube](https://www.youtube.com/playlist?list=PL6gx4Cwl9DGCzVMGCPi1kwvABu7eWv08P)
@@ -113,7 +118,7 @@ library(skimr)
 library(pillar)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 ```
 
@@ -156,6 +161,7 @@ When you begin any new project, it is important to understand the condition of y
 There are countless ways to do this, but I am providing you with two helpful functions from two different packages. 
 
 Option 1 from the `skimr` library:  
+Note: The formatting of this web page is cutting off some columns in the table. I'm working on a fix but take a look at the results when you run it in your R script. 
 ```{r}
 skim_without_charts(mydata)
 ```
@@ -173,7 +179,7 @@ The `glimpse` function is not as compact as skim, but it also includes the numbe
 names(mydata)
 ```
 
-View the first 10 rows of your data set. (#head)
+#### View the first 10 rows of your data set. {- #head}
 ```{r}
 head(mydata)
 ```
@@ -184,6 +190,7 @@ head(mydata$name)
 ```
 
 #### Look at missing observations in your dataset {-#missing}
+To apply this to your data set, just change `mydata` to the name of whatever dataset you are using. Everything else can stay the same. 
 ```{r}
 sapply(mydata, function(x) sum(is.na(x)))
 ```
@@ -260,7 +267,7 @@ For this recoding we used two new functions.
 **Note**: In R when you are creating something new, as inside of the mutate statement, you use a single equals sign. Your new variable `female` *should equal* what follows. When you're writing a test statement referring to something that already exists, you use double equals sign (`==`). For example, in the ifelse function you use two equals sign because you're looking at the data where `demographicsgender2` is in existing data equal to 1. 
   
 #### `ifelse()` to write conditional statements {-#ifelse}
-`ifelse()` is an incredibly helpful function to recode another variable. The function requires you to specify some type of condition. In this case you're saying make this change *if* `demographicsgender2` is equal to 1. If it is equal to one, you tell R what you want to do after the comma-- set the value of your new variable equal to one. After the next comma, you tell R *if else* (meaning if `demographicsgender2` is any other value) set the value of our new variable equal to 1.  
+`ifelse()` is an incredibly helpful function to recode one variable based on its existing values or the values of another variable. The function requires you to specify some type of condition. In this case you're saying make this change *if* `demographicsgender2` is equal to 1. If it is equal to one, you tell R what you want to do after the comma-- set the value of your new variable equal to one. After the next comma, you tell R *if else* (meaning if `demographicsgender2` is any other value) set the value of our new variable equal to 1.  
   
 `ifelse(test statement, value if test is true, value if test is false)`  
   
@@ -286,11 +293,11 @@ mydata %>%
   count()
 ```
 
-The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset.Let's recode those variables to missing (NA) for now. Again, you'll use `mutate()` and `ifelse()`, and you will name the variable something easier to work with. 
+The major concern is that there are some numbers that seem unreasonable. Age is not negative, and 0 is an unlikely age for a person in a billionaire dataset. Let's recode those variables to missing (NA) for now. Again, you'll use `mutate()` and `ifelse()`, and you will name the variable something easier to work with. Here if the test statement is false (aka if `demographicsage` is greater than 0) the value should just transfer over from `demographicsage`. 
 ```{r}
 # Recode the variable
 mydata <- mydata %>%
-  mutate(age = ifelse(demographicsage <= 0, NA, demographicsage))
+  mutate(age = ifelse(demographicsage <= 0, NA, demographicsage)) 
 
 # Check the new variable
 mydata %>%
@@ -306,11 +313,11 @@ If you have a sharp eye, you'll notice that we created a new variable rather tha
 ### Vizualizing variables {-}
 
 #### Continuous Variables {-}
-While frequency tables and descriptive statistics are helpful, visualizing continuous variables or discrete variables with a wide range of values can be helpful to get a look at the shape of our data. Histograms or box plots the go to.  
+While frequency tables and descriptive statistics are helpful, visualizing variables can be helpful to get a look at the shape of our data. For continuous variables or discrete variables with a wide range of values histograms or box plots the go to. 
   
 There are two main ways to create graphs in R, base R plots and `ggplot2`. `ggplot2` has far more flexibility, so we will focus on that package primarily. However, when you are moving fast it can sometimes be helpful to throw up a quick histogram in base R.  
   
-##### `hist()` Create a histogram in base R {-#hist}
+##### `hist()` to create a histogram in base R {-#hist}
 The code for creating a histogram using base R is simple, but you don't have as much flexibility to change aspects of the plot if you want to use it in presentations or papers. 
 ```{r}
 hist(mydata$age)
@@ -327,14 +334,14 @@ As I've mentioned, `ggplot2` has a massive amount of flexibility and a unique gr
 # Creatign the plot
 ggplot(data = mydata, aes(x = age)) + #specifying dataset and your variable
   geom_histogram(color = "white") + #changing the outline of the bars to white
-  theme_minimal() # applying a built-in theme to the graph
+  theme_classic() # applying a built-in theme to the graph
 ```
   
 Let's try changing the number of bins. 
 ```{r, message=FALSE, warning=FALSE}
 ggplot(data = mydata, aes(x = age)) +
   geom_histogram(color = "white", bins = 10) +
-  theme_minimal()
+  theme_classic()
 ```
   
 ##### Box plots with `ggplot()` {-#boxplot}
@@ -361,7 +368,7 @@ Let's try making a bar plot of gender. Note I have to turn `female` into a facto
 ```{r}
 ggplot(data = mydata, aes(x = as.factor(female))) + 
   geom_bar() + 
-  theme_classic()
+  theme_minimal()
 ```
 
 If I want to remove the NA column, I can also filter the data within the `ggplot` function. I'm also going to clean up the axis labels, add a title, and change the width of the bars. 
@@ -373,7 +380,7 @@ ggplot(data = mydata %>% drop_na(female), aes(x = as.factor(female))) +
     y = "Count", 
     title = "Bar plot of gender"
   ) + 
-  theme_classic()
+  theme_minimal()
 ```
 
 
@@ -385,7 +392,7 @@ ggsave("figs_output/barplot-example.png")
 
 
 ### Subsetting and saving data {-}
-Sometimes you'll be working with a huge dataset, and it is easier and cleaner save portion of observations and/or variables in a new dataset. This is called a sub-sample.  
+Sometimes you'll be working with a huge dataset, and it is easier and cleaner save a portion of observations and/or variables in a new dataset. This is called a subset.  
 
 #### `select()` to subset your data to specific variables {-#select}
 Let's say you only want to keep the following three variables: year and the two variables you just created: age and female. You can easily subset the data using the `select()` function in tidyverse. In the select function you simply list the variables you want to keep. You can also specify specific variables to drop by putting them in the list with a minus sign in front (example: `-year, -age, -female`)
@@ -394,7 +401,7 @@ Let's say you only want to keep the following three variables: year and the two 
 mysubset <- mydata %>% # note I'm saving this as a new dataframe with a new name
   select(year, age, female)
 
-skim_without_charts(mysubset) # you should always check your data when you make a major change like adding or removing variables.
+glimpse(mysubset) # you should always check your data when you make a major change like adding or removing variables.
 ```
 
 #### `filter()` to subset your data to specific observations {-#filter}
@@ -508,7 +515,7 @@ mutate(percent=round(n/nrow(mydata)*100,2))
 
 ```
 
-It works, but it's cluttered and makes it difficult to read. Take a look at this 
+It works, but it's cluttered and that makes it difficult to read. Take a look at this 
 line in a cleaner format: 
 ```{r, eval = FALSE}
 
@@ -521,7 +528,7 @@ Notice how I've added a space on both sides of the `=`, the `/`, and the `*`. Th
 #### Create headers and sections in your code {-}
 You wouldn't write a paper without any titles or sections, so don't write your code without titles or sections! Take a look back at the R script for this lab. Notice how I put a section header for setting up your environment, exploring your data, cleaning your data, and so on. Hopefully this made it easier for you to work through the script.  
   
-You can create headers with comments, but you can also use a shortcut built into R. If you go to **Code -> Insert Section** or `Ctrl+Shift+R` (`Cmd+Shift+R` on the Mac). This will insert a header and create a code section. Any comment line which includes at least four trailing dashes (-), equal signs (=), or pound signs (#) automatically creates a code section. 
+You can create headers with comments, but you can also use a shortcut built into R. If you go to **Code -> Insert Section** or `Ctrl+Shift+R` (`Cmd+Shift+R` on the Mac) this will insert a header and create a code section. Any comment line which includes at least four trailing dashes (-), equal signs (=), or pound signs (#) automatically creates a code section. 
 ```{r}
  # Section One ---------------------------------
  
@@ -537,7 +544,8 @@ knitr::include_graphics(rep("images/jumpmenu.png"))
 ```
 
 #### Create clear names for your variables, data frames, and objects {-}
-Everyone has their own preferred naming system for variables, data frames, and other R objects. The golden rule for naming is consistency. For example, if I recode variables I will often add `_rc` to the end for recode (e.g., `age` and `age_rc`). Other tips:   
+Everyone has their own preferred naming system for variables, data frames, and other R objects. The golden rule for naming is consistency. For example, if I recode variables I will often add `_rc` to the end for recode (e.g., `age` and `age_rc`). Other tips:  
+  
 * Make your names explicit, but brief (e.g., `table_1`, `table_2`)
 * Don't include spaces in your file names, it makes file paths difficult
 

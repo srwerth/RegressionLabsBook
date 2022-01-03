@@ -29,26 +29,24 @@ library(pillar)
 # Set your working directory (if you aren't working in a project). Replace the
 # path that I'm using with the path to the folder you want to import from/
 # export to.
-setwd("~/Documents/Work & Research/Regression Labs")
-
-# If you are working inside a project, create a folder system to keep your data
-# for this project organized.
-dir.create("data_raw")
-dir.create("data_work")
-dir.create("fig_output")
-dir.create("scripts")
+setwd("~/Documents/Work_Research/Regression_Labs")
 
 # Load your dataset
-load("data/SOC401_W21_Billionaires.rda")
+load("data_raw/SOC401_W21_Billionaires.rda")
+
+# Here are some other ways to load your dataset into R.
+# read_dta("data_raw/SOC401_W21_Billionaires.dta") #from 'haven' package
+# read.csv("data_raw/SOC401_W21_Billionaires.csv")
+# Check out this tutorial on how to load excel data:
+# https://www.datacamp.com/community/tutorials/r-tutorial-read-excel-into-r
 
 # Renaming dataset so it's easier to code with, and so I can keep a raw version
 # of the dataset saved in my environment.
 mydata <- SOC401_W21_Billionaires # this saves the dataset as a new dataframe in our environment.
 
-
 # Exploring your data -----------------------------------------------------
 # When you begin any new project, it is important to understand the nature and
-# condition of your variables. Here are a few of the important codes you need
+# condition of your variables. Here are a few of the important functions you need
 # to begin that process.
 
 # Remember if this script uses a function you are not familiar with, search
@@ -82,7 +80,7 @@ summary(mydata$wealthworthinbillions)
 
 # Individual statistics.
 # We can also use functions to individual see the mean, range, or standard
-# deviation of datasets. These functions can be helpful checks as you clean
+# deviation of variables. These functions can be helpful checks as you clean
 # a dataset
 mean(mydata$demographicsage)
 range(mydata$demographicsage) #hmm...notice anything odd about this range?
@@ -123,18 +121,21 @@ mydata %>%
 # Here we will recode the variable using the mutate() function and the ifelse()
 # function, which are helpful for recoding based on previous variable.
 # If we want to label the 3 married couples as 0, aka not female...
+# Recode the variable
 mydata <- mydata %>%
   mutate(female = ifelse(demographicsgender2 == 1, 1, 0))
 
+# Check the new variable using a frequency table.
 mydata %>%
   group_by(female) %>%
   count()
 
 # If we want to label the three married couples as NA, so 1 = female, 0 = male
+# Recode the variable
 mydata <- mydata %>%
   mutate(female = ifelse(demographicsgender2 == 1, 1,
                          ifelse(demographicsgender2 == 2, 0, NA)))
-
+# Check the new variable
 mydata %>%
   group_by(female) %>%
   count()
@@ -155,9 +156,11 @@ mydata %>%
 
 # Let's recode those variables to NA for now. Again, we'll use mutate() and
 # ifelse(), and we will name the variable something easier to work with.
+# Recode the variable
 mydata <- mydata %>%
   mutate(age = ifelse(demographicsage <= 0, NA, demographicsage))
 
+# Check the new variable
 mydata %>%
   group_by(age) %>%
   count()
@@ -178,17 +181,45 @@ hist(mydata$age)
 # in what it can do and the quality of graphics it produces
 ggplot(data = mydata, aes(x = age)) +
   geom_histogram(color = "white") +
-  theme_minimal()
+  theme_classic()
 
 # Let's change the number of bins
 ggplot(data = mydata, aes(x = age)) +
   geom_histogram(color = "white", bins = 10) +
-  theme_minimal()
+  theme_classic()
 
 hist(mydata$age, breaks = 10)
 
+# Let's make a box plot of age
+ggplot(data = mydata, aes(y = age)) +
+  geom_boxplot() +
+  theme_bw()
+
+# Let's make a box plot of age by gender
+ggplot(data = mydata, aes(y = age, x = female, group = female)) +
+  geom_boxplot() +
+  theme_bw()
+
+# Categorical Variables
+# For categorical variables, you can produce a bar plot.
+
+# Simple barplot
+ggplot(data = mydata, aes(x = as.factor(female))) +
+  geom_bar() +
+  theme_minimal()
+
+# Barplot filtering out NA values
+ggplot(data = mydata %>% drop_na(female), aes(x = as.factor(female))) +
+  geom_bar(width = .5) +
+  labs(
+    x = "Gender",
+    y = "Count",
+    title = "Bar plot of gender"
+  ) +
+  theme_minimal()
+
 # Let's save a ggplot
-ggsave("figs_output/histogram-example.png")
+ggsave("figs_output/barplot-example.png")
 # This will save the last ggplot that you created. I encourage you to look up
 # examples of ggsave to learn different ways you can save plots as objects,
 # specify height and width, and more.
@@ -206,7 +237,7 @@ ggsave("figs_output/histogram-example.png")
 mysubset <- mydata %>% # note I'm saving this as a new dataframe with a new name
   select(year, age, female)
 
-skim_without_charts(mysubset) # you should always check your data when you make
+glimpse(mysubset) # you should always check your data when you make
                               # a major change like adding or removing variables.
 
 # But what if we wanted to subset the data to only billionaires 30 or older?
@@ -225,10 +256,11 @@ range(mysubset2$age) # Another check to see our code worked how we wanted it!
 
 # Saving as r data format (.rda or .rData - both are the same).
 save(mysubset, file = "data_work/mysubset.rda")
+# note I'm saving this in my working data folder
 
 # Saving as a .csv file
 write_csv(mysubset, file = "data_work/mysubset.csv")
 
 # Remember, every time you run these command it writes over your previous save.
 # So be careful about version control and ALWAYS maintain the raw data file in
-# a separte location.
+# a separate location.
